@@ -31,10 +31,9 @@
   gap: 10px;
 }
 .item span{
-  font-size: 15px;
+  font-size: large;
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-  font-style:initial;
 }
 
 .item img {
@@ -43,11 +42,15 @@
   object-fit: contain;
 }
 #displayProduct > ul > li {
-  font-size: 25px;
+  font-size: x-large;
   font-weight: bolde;
   margin-top: 30px;
   font-style: italic;
   font-family: Georgia, Times, 'Times New Roman', serif;
+}
+.qty{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: medium;
 }
 
 /* Change background color of buttons on hover */
