@@ -64,21 +64,19 @@ var products = [
 		name: "Oranges",
 		vegetarian: true,
 		glutenFree: true,
-		organic: true,
+		organic:false,
 		price: 1.20
 	},
 	{
 		name: "Salmon",
 		vegetarian: false,
 		glutenFree: true,
-		organic: false,
-		price: 10.00
-	}
+		organic: false,		price: 10.00	},
 	{
 		name: "Beef",
 		vegetarian: false,
 		glutenFree: true,
-		organic: false,
+		organic: true,
 		price: 9.50
 	},
 	{
@@ -92,6 +90,28 @@ var products = [
 
 ];
 	
+// Organic Filter 
+function filterSelection(c) {
+  document.querySelectorAll(".item").forEach(item => {
+    if (c === "all" || item.classList.contains(c)) {
+      item.style.display = "flex";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+document.querySelectorAll('input[name="FilterOrganic"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const value = document.querySelector(
+      'input[name="FilterOrganic"]:checked'
+    ).value;
+    filterSelection(value);
+  });
+});
+
+// default
+filterSelection("all");
 
 
 // given restrictions provided, make a reduced list of products
@@ -109,7 +129,7 @@ function restrictListProducts(prods, restriction) {
 		else if (restriction == "organic" && prods[i].organic) {
             product_names.push(prods[i].name);
        }
-	   else if (restriction == "non organic" && prods[i].organic) {
+	   else if (restriction == "non-organic" && !prods[i].organic) {
             product_names.push(prods[i].name);
        }
 		else if (restriction == "None"){

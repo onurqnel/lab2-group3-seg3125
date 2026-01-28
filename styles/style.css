@@ -20,26 +20,34 @@
 .item {
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   gap: 10px;
   margin: 12px;
   cursor: pointer;
 }
 .check-box{
   display: flex;
-  align-items: center;
+  align-items: right;
   gap: 10px;
 }
 .item span{
   font-size: large;
-  text-align: center;
+  text-align: right;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
 }
-
+.qty span{
+font-family: 'Times New Roman', Times, serif;
+font-size: medium;
+}
 .item img {
   width: 120px;
   height: 120px;
   object-fit: contain;
+}
+#displayProduct ul {
+list-style-type: none;
+padding-left: 0;
+margin-left: 0;
 }
 #displayProduct > ul > li {
   font-size: x-large;
@@ -48,10 +56,13 @@
   font-style: italic;
   font-family: Georgia, Times, 'Times New Roman', serif;
 }
-.qty{
-  font-family: 'Times New Roman', Times, serif;
-  font-size: medium;
+.unit{
+  font-size: small;
+  color:#777676;
+  font-style: italic;
 }
+
+
 
 /* Change background color of buttons on hover */
 .tab button:hover {
