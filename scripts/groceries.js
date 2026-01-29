@@ -143,39 +143,6 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 				product_names.push(prods[i].name);
 			}
 		}
-
-
-		// client is not vegetarian and item is vegetarian
-		else if ((!restrictionVeg) && (prods[i].vegetarian == true)){
-			product_names.push(prods[i].name);
-		}
-		// client is not vegetarian and item is not vegetarian
-		else if ((!restrictionVeg) && (prods[i].vegetarian == false)){
-			product_names.push(prods[i].name);
-		}
-		// client is gluten-free and item is gluten-free
-		else if ((restrictionGF == "GlutenFree") && (prods[i].glutenFree == true)){
-			product_names.push(prods[i].name);
-		}
-		// client is not gluten-free and item is gluten-free
-		else if ((!restrictionGF == "GlutenFree") && (prods[i].glutenFree == true)){
-			product_names.push(prods[i].name);
-		}
-		// client is not gluten-free and item is not gluten-free
-		else if ((!restrictionGF == "GlutenFree") && (prods[i].glutenFree == false)){
-			product_names.push(prods[i].name);
-		}
-
-		/*
-		else if (restriction == "organic" && prods[i].organic) {
-            product_names.push(prods[i].name);
-       }
-	   else if (restriction == "non-organic" && !prods[i].organic) {
-            product_names.push(prods[i].name);
-       }
-		else if (restriction == "None"){
-			product_names.push(prods[i].name);
-		}*/
 	}
 
 	//sort by price underneath (bubble sort idc)
