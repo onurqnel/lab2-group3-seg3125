@@ -3,25 +3,115 @@
 
 var products = [
 	{
-		name: "brocoli",
-		vegetarian: true,
-		glutenFree: true,
-		price: 1.99
-	},
-	{
-		name: "bread",
+		name: "White Bread",
 		vegetarian: true,
 		glutenFree: false,
-		price: 2.35
+		organic: false,
+		price: 3.99
 	},
 	{
-		name: "salmon",
+		name: "GlutenFree Bread",
+		vegetarian: true,
+		glutenFree: true,
+		organic: true,
+		price: 6.90
+	},
+	{
+		name: "Milk 3%",
 		vegetarian: false,
 		glutenFree: true,
-		price: 10.00
-	}
+		organic: false,
+		price: 5.44
+	},
+	{
+		name: "Oat Milk",
+		vegetarian: true,
+		glutenFree: true,
+		organic: true,
+		price: 4.47
+	},
+	{
+		name: "Yogurt",
+		vegetarian: false,
+		glutenFree: true,
+		organic: false,
+		price: 6.40
+	},
+	{
+		name: "Tomatoes",
+		vegetarian: true,
+		glutenFree: true,
+		organic: true,
+		price: 0.96
+	},
+	{
+		name: "Cucumber",
+		vegetarian: true,
+		glutenFree: true,
+		organic: false,
+		price: 1.30
+	},
+	{
+		name: "Apples",
+		vegetarian: true,
+		glutenFree: true,
+		organic: true,
+		price: 1.19
+	},
+
+
+	{
+		name: "Oranges",
+		vegetarian: true,
+		glutenFree: true,
+		organic:false,
+		price: 1.20
+	},
+	{
+		name: "Salmon",
+		vegetarian: false,
+		glutenFree: true,
+		organic: false,		price: 10.00	},
+	{
+		name: "Beef",
+		vegetarian: false,
+		glutenFree: true,
+		organic: true,
+		price: 9.50
+	},
+	{
+		name: "Chicken",
+		vegetarian: false,
+		glutenFree: true,
+		organic: false,
+		price: 10.80
+	},
+
+
 ];
 	
+// Organic Filter 
+function filterSelection(c) {
+  document.querySelectorAll(".item").forEach(item => {
+    if (c === "all" || item.classList.contains(c)) {
+      item.style.display = "flex";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+document.querySelectorAll('input[name="FilterOrganic"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const value = document.querySelector(
+      'input[name="FilterOrganic"]:checked'
+    ).value;
+    filterSelection(value);
+  });
+});
+
+// default
+filterSelection("all");
 
 
 // given restrictions provided, make a reduced list of products
@@ -36,6 +126,12 @@ function restrictListProducts(prods, restriction) {
 		else if ((restriction == "GlutenFree") && (prods[i].glutenFree == true)){
 			product_names.push(prods[i].name);
 		}
+		else if (restriction == "organic" && prods[i].organic) {
+            product_names.push(prods[i].name);
+       }
+	   else if (restriction == "non-organic" && !prods[i].organic) {
+            product_names.push(prods[i].name);
+       }
 		else if (restriction == "None"){
 			product_names.push(prods[i].name);
 		}

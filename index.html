@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<! This style sheet is taken from  https://www.w3schools.com/howto/howto_js_tabs.asp>
+	<!--- This style sheet is taken from  https://www.w3schools.com/howto/howto_js_tabs.asp-->
 	<link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+<h1>
+  Welcome to Good Food Grocery store ! 
+</h1>
 
 <!-- Tab links, each one with an onclick event associated with it -->
 <div class="tab">
@@ -31,7 +34,220 @@
   <h3>Your targeted products</h3>
   <p>We preselected products based on your restrictions.</p>
 	 Choose items to buy:
-	 <div id="displayProduct"></div>
+   <div id="filter-organic">
+    <strong>filter by:</strong>
+    <label>
+      <input type="radio" name ="FilterOrganic" value="all" checked>
+      All
+    </label>
+    <label>
+      <input type="radio" name ="FilterOrganic" value="organic">
+      Organic
+    </label>
+    <label>
+      <input type="radio" name="FilterOrganic" value="non-organic">
+      Non Organic
+    </label>
+   </div>
+	 <div id="displayProduct">
+    <ul>
+      <li>Bread
+        <ul>
+          <li>
+          <label class = "item non-organic">
+            <img src = "images/whitebread.png" alt="White Bread">
+            <div class= "check-box">
+             <input type ="checkbox" value="White Bread">
+            <span> White Bread</span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+          </label>
+        </li>
+
+          <li>
+            <label class ="item organic">
+              <img src ="images/glutenfreebread.png" alt="GlutenFree Bread">
+              <div class= "check-box">
+              <input type="checkbox" value = "GlutenFree Bread">
+               <span>GlutenFree Bread</span>
+               </div>
+               <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+            </label>
+          </li>
+        </ul>
+      </li>
+
+      <li>Dairy
+        <ul> 
+         <li>
+          <label class = "item non-organic">
+            <img src = "images/milk.png" alt="Milk 3%">
+            <div class ="check-box">
+            <input type ="checkbox" value="Milk 3%">
+            <span> Milk 3%</span>
+            </div>
+            <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+          </label>
+        </li>
+        
+          <li>
+            <label class = "item organic">
+            <img src = "images/oatmilk.png" alt="Oat Milk">
+            <div class="check-box">
+            <input type ="checkbox" value="Oat Milk">
+            <span> Oat Milk</span>
+            </div>
+            <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+          </label>
+          </li>
+          <li>
+            <label class = "item non-organic">
+            <img src = "images/yogurt.png" alt="Yogurt">
+            <div class="check-box">
+            <input type ="checkbox" value="Yogurt">
+            <span> Yogurt</span>
+          </div>
+         <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+            </label>
+          </li>
+        </ul>
+      </li>
+
+
+       <li>Veggies 
+        <ul>
+          <li>
+            <label class = "item organic">
+            <img src = "images/tomato.png" alt="Tomatoes">
+            <div class="check-box">
+            <input type ="checkbox" value="Tomatoes">
+            <span> Tomatoes</span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+            </label>
+        </li>
+
+          <li>
+            <label class = "item non-organic">
+              <img src = "images/cucumber.png" alt="Cucumber">
+            <div class="check-box">
+            <input type ="checkbox" value="Cucumber">
+            <span> Cucumber</span>
+            </div>
+            <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+            </label>
+          </li>
+        </ul>
+      </li>
+
+       <li>Fruits
+        <ul>
+          <li>
+            <label class = "item organic">
+            <img src = "images/apple.png" alt="Apples">
+            <div class="check-box">
+            <input type ="checkbox" value="Apples">
+            <span> Apples</span>
+          </div>
+
+          <div class ="qty">
+            <span> quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+          </label>
+         </li>
+        
+
+          <li>
+            <label class = "item non-organic">
+              <img src = "images/orange.png" alt="Oranges">
+
+              <div class="check-box">
+            <input type ="checkbox" value="Oranges">
+            <span> Oranges</span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            </div>
+          </label>
+        </li>
+        </ul>
+      </li>
+
+       <li>Meat
+        <ul>
+          <li>
+            <label class = "item non-organic">
+            <img src = "images/salmon.png" alt="Salmon">
+            <div class ="check-box">
+            <input type ="checkbox" value="Salmon">
+            <span> Salmon</span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0"> 
+            <span  class ="unit">(in lb)</span>
+            </div>
+          </label>
+        </li>
+
+          <li>
+            <label class = "item organic">
+            <img src = "images/beef.png" alt="Beef">
+            <div class ="check-box">
+            <input type ="checkbox" value="Beef">
+            <span> Beef</span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0">
+            <span  class ="unit">(in lb)</span>
+            </div>
+            </label>
+        </li>
+
+          <li>
+            <label class = "item non-organic">
+            <img src = "images/chicken.png" alt="Chicken">
+            <div class="check-box">
+            <input type ="checkbox" value="Chicken">
+            <span> Chicken </span>
+          </div>
+          <div class ="qty">
+            <span>quantity</span>
+            <input class="quantity" type ="number" min ="0" value="0"> 
+            <span  class ="unit">(in lb)</span>
+            </div>
+          </label>
+        </li>
+        </ul>
+      </li>
+
+    </ul>
+   </div>
+  
 	 <button id="addCart" type="button" class="block" onclick="selectedItems()">
 		Add selected items to cart.
 	</button>
