@@ -10,7 +10,7 @@ var products = [
 		price: 3.99
 	},
 	{
-		name: "GlutenFree Bread",
+		name: "Gluten-free Bread",
 		vegetarian: true,
 		glutenFree: true,
 		organic: true,
@@ -58,8 +58,6 @@ var products = [
 		organic: true,
 		price: 1.19
 	},
-
-
 	{
 		name: "Oranges",
 		vegetarian: true,
@@ -89,7 +87,7 @@ var products = [
 
 
 ];
-	
+/*
 // Organic Filter 
 function filterSelection(c) {
   document.querySelectorAll(".item").forEach(item => {
@@ -112,20 +110,63 @@ document.querySelectorAll('input[name="FilterOrganic"]').forEach(radio => {
 
 // default
 filterSelection("all");
+*/
 
 
 // given restrictions provided, make a reduced list of products
 // prices should be included in this list, as well as a sort based on price
 
-function restrictListProducts(prods, restriction) {
+function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	let product_names = [];
-	for (let i=0; i<prods.length; i+=1) {
-		if ((restriction == "Vegetarian") && (prods[i].vegetarian == true)){
+	for (let i=0; i<prods.length; i++) {
+		// item is vegetarian and gluten-free
+		if((prods[i].vegetarian == true) && (prods[i].glutenFree == true)){
 			product_names.push(prods[i].name);
 		}
-		else if ((restriction == "GlutenFree") && (prods[i].glutenFree == true)){
+		// client is vegetarian and item is vegetarian
+		else if ((restrictionVeg) && (prods[i].vegetarian == true)){
+			//check if gluten matters
+			if((restrictionGF) && (prods[i].glutenFree == true)){
+				product_names.push(prods[i].name);
+			}
+			else if(!restrictionGF){
+				product_names.push(prods[i].name);
+			}
+		}
+		// client is not vegetarian
+		else if(!restrictionVeg){
+			//check if gluten matters
+			if((restrictionGF) && (prods[i].glutenFree == true)){
+				product_names.push(prods[i].name);
+			}
+			else if(!restrictionGF){
+				product_names.push(prods[i].name);
+			}
+		}
+
+
+		// client is not vegetarian and item is vegetarian
+		else if ((!restrictionVeg) && (prods[i].vegetarian == true)){
 			product_names.push(prods[i].name);
 		}
+		// client is not vegetarian and item is not vegetarian
+		else if ((!restrictionVeg) && (prods[i].vegetarian == false)){
+			product_names.push(prods[i].name);
+		}
+		// client is gluten-free and item is gluten-free
+		else if ((restrictionGF == "GlutenFree") && (prods[i].glutenFree == true)){
+			product_names.push(prods[i].name);
+		}
+		// client is not gluten-free and item is gluten-free
+		else if ((!restrictionGF == "GlutenFree") && (prods[i].glutenFree == true)){
+			product_names.push(prods[i].name);
+		}
+		// client is not gluten-free and item is not gluten-free
+		else if ((!restrictionGF == "GlutenFree") && (prods[i].glutenFree == false)){
+			product_names.push(prods[i].name);
+		}
+
+		/*
 		else if (restriction == "organic" && prods[i].organic) {
             product_names.push(prods[i].name);
        }
@@ -134,8 +175,10 @@ function restrictListProducts(prods, restriction) {
        }
 		else if (restriction == "None"){
 			product_names.push(prods[i].name);
-		}
+		}*/
 	}
+
+	//sort by price underneath (bubble sort idc)
 	return product_names;
 }
 

@@ -20,14 +20,14 @@
 <!-- Tab content -->
 <div id="Client" class="tabcontent">
   <h3>Client Information</h3>
-  <p>Tell us a bit about you.</p>
-	Choose a Category:
-	<select id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
-	<option value=""></option>
-	<option value="Vegetarian">Vegetarian</option>
-    <option value="GlutenFree">GlutenFree</option>
-    <option value="None">None</option>
-	</select>
+  <p>	Choose a Category:</p>
+  <div id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
+    <input type="checkbox" id="vegetarian" onclick="isVegetarian()" name="vegetarian" value="Vegetarian">
+    <label for="vegetarian"> Vegetarian</label><br>
+    <input type="checkbox" id="glutenFree" onclick="isGlutenFree()" name="glutenFree" value="GlutenFree">
+    <label for="glutenFree"> Gluten Free</label>
+  </div>
+  <br>
 </div>
 
 <div id="Products" class="tabcontent">
@@ -35,7 +35,7 @@
   <p>We preselected products based on your restrictions.</p>
 	 Choose items to buy:
    <div id="filter-organic">
-    <strong>filter by:</strong>
+    <b>Filter by:</b> <br>
     <label>
       <input type="radio" name ="FilterOrganic" value="all" checked>
       All
@@ -49,6 +49,7 @@
       Non Organic
     </label>
    </div>
+
 	 <div id="displayProduct">
     <ul>
       <li>Bread

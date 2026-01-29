@@ -1,3 +1,6 @@
+let clientVeg = false;
+let clientGF = true;
+
 // This function is called when any of the tab is clicked
 // It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
 
@@ -22,19 +25,42 @@ function openInfo(evt, tabName) {
 }
 
 
+// for client checkboxes
+function isVegetarian(){
+	var checkBox = document.getElementById("vegetarian");
+	if (checkBox.checked == true){
+    	clientVeg = true;
+  	}
+	else {
+     	clientVeg = false;
+  	}
+}
+
+function isGlutenFree(){
+	var checkBox = document.getElementById("glutenFree");
+	if (checkBox.checked == true){
+    	clientGF = true;
+  	}
+	else {
+     	clientGF = false;
+  	}
+}
+
 	
 // generate a checkbox list from a list of products
 // it makes each product name as the label for the checkbos
 
 function populateListProductChoices(slct1, slct2) {
+	//client id
     var s1 = document.getElementById(slct1);
+	//display product
     var s2 = document.getElementById(slct2);
 	
 	// s2 represents the <div> in the Products tab, which shows the product list, so we first set it empty
     s2.innerHTML = "";
 		
 	// obtain a reduced list of products based on restrictions
-    var optionArray = restrictListProducts(products, s1.value);
+    var optionArray = restrictListProducts(products, clientVeg, clientGF);
 
 	// for each item in the array, create a checkbox element, each containing information such as:
 	// <input type="checkbox" name="product" value="Bread">
