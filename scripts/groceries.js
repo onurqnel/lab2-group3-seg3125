@@ -96,30 +96,35 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	let second_products = [];
 	let product_names = [];
 
-	// sorting first for dietary restrictions
+	// go through all potential products to determine display
 	for (let i=0; i<prods.length; i++) {
-		// item is vegetarian and gluten-free
-		if((prods[i].vegetarian) && (prods[i].glutenFree)){
-			first_products.push(prods[i]);
-		}
-		// client is vegetarian and item is vegetarian
-		else if ((restrictionVeg) && (prods[i].vegetarian)){
-			//check if gluten matters
-			if((restrictionGF) && (prods[i].glutenFree)){
+		// if item is within price range
+		if(prods[i].price >= clientFrom && prods[i].price <= clientTo){
+			// sorting first for dietary restrictions
+
+			// item is vegetarian and gluten-free
+			if((prods[i].vegetarian) && (prods[i].glutenFree)){
 				first_products.push(prods[i]);
 			}
-			else if(!restrictionGF){
-				first_products.push(prods[i]);
+			// client is vegetarian and item is vegetarian
+			else if ((restrictionVeg) && (prods[i].vegetarian)){
+				//check if gluten matters
+				if((restrictionGF) && (prods[i].glutenFree)){
+					first_products.push(prods[i]);
+				}
+				else if(!restrictionGF){
+					first_products.push(prods[i]);
+				}
 			}
-		}
-		// client is not vegetarian
-		else if(!restrictionVeg){
-			//check if gluten matters
-			if((restrictionGF) && (prods[i].glutenFree)){
-				first_products.push(prods[i]);
-			}
-			else if(!restrictionGF){
-				first_products.push(prods[i]);
+			// client is not vegetarian
+			else if(!restrictionVeg){
+				//check if gluten matters
+				if((restrictionGF) && (prods[i].glutenFree)){
+					first_products.push(prods[i]);
+				}
+				else if(!restrictionGF){
+					first_products.push(prods[i]);
+				}
 			}
 		}
 	}

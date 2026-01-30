@@ -91,3 +91,9 @@ margin-left: 0;
   border: 1px solid #ccc;
   border-top: none;
 }
+#from{
+  width:50px;
+}
+#to{
+  width:50px;
+}

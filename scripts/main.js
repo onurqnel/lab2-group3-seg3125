@@ -1,6 +1,8 @@
 let clientVeg = false;
 let clientGF = true;
 let organicState = "all";
+let clientFrom = 0;
+let clientTo = 0;
 
 // This function is called when any of the tab is clicked
 // It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
@@ -56,13 +58,19 @@ function searchOrganic(org){
 	}
 }
 
+//set price ranges
+function setFrom(from){
+	clientFrom = from
+}
+function setTo(to){
+	clientTo = to;
+}
+
 	
 // generate a checkbox list from a list of products
 // it makes each product name as the label for the checkbos
 
-function populateListProductChoices(slct1, slct2) {
-	//client id
-    var s1 = document.getElementById(slct1);
+function populateListProductChoices(slct2) {
 	//display product
     var s2 = document.getElementById(slct2);
 	

@@ -21,7 +21,7 @@
 <div id="Client" class="tabcontent">
   <h3>Client Information</h3>
   <p>	Choose a Category:</p>
-  <div id="dietSelect" name="dietSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
+  <div id="dietSelect" name="dietSelect" onchange="populateListProductChoices('displayProduct')">
     <input type="checkbox" id="vegetarian" onclick="isVegetarian()" name="vegetarian" value="Vegetarian">
     <label for="vegetarian"> Vegetarian</label><br>
     <input type="checkbox" id="glutenFree" onclick="isGlutenFree()" name="glutenFree" value="GlutenFree">
@@ -36,7 +36,7 @@
 	 Choose items to buy:
    <div id="filter-organic">
     <b>Filter by:</b> <br>
-    <div id="organicSelect" name="organicSelect" onchange="populateListProductChoices(this.id, 'displayProduct')">
+    <div id="organicSelect" name="organicSelect" onchange="populateListProductChoices('displayProduct')">
       <label>
         <input type="radio" id="all" name ="FilterOrganic" value="all" checked onclick="searchOrganic(this.id)">
         All
@@ -50,6 +50,12 @@
         Non Organic
       </label>
     </div>
+   </div>
+
+   <div id="priceRange" onchange="populateListProductChoices('displayProduct')">
+    <p>What is your price range?</p>
+    <p>From <input class="quantity" type ="number" min ="0" value="0.00" id="from" onchange="setFrom(value)" step="0.01"> 
+      to <input class="quantity" type ="number" min ="0" value="0.00" id="to" onchange="setTo(value)" step="0.01"></p>
    </div>
 
 	 <div id="displayProduct">
