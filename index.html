@@ -37,15 +37,15 @@
    <div id="filter-organic">
     <b>Filter by:</b> <br>
     <label>
-      <input type="radio" name ="FilterOrganic" value="all" checked>
+      <input type="radio" id="all" name ="FilterOrganic" value="all" checked onclick="searchOrganic(this.id)">
       All
     </label>
     <label>
-      <input type="radio" name ="FilterOrganic" value="organic">
+      <input type="radio" id="organic" name ="FilterOrganic" value="organic" onclick="searchOrganic(this.id)">
       Organic
     </label>
     <label>
-      <input type="radio" name="FilterOrganic" value="non-organic">
+      <input type="radio" id="non-organic" name="FilterOrganic" value="non-organic" onclick="searchOrganic(this.id)">
       Non Organic
     </label>
    </div>

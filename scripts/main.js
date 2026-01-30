@@ -1,5 +1,6 @@
 let clientVeg = false;
 let clientGF = true;
+let organicState = "all";
 
 // This function is called when any of the tab is clicked
 // It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
@@ -44,6 +45,16 @@ function isGlutenFree(){
 	else {
      	clientGF = false;
   	}
+}
+
+// need to add functionality back to organics
+function searchOrganic(id){
+	if(id == "organic"){
+
+	}
+	else if(id == "non-organic"){
+
+	}
 }
 
 	
