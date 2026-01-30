@@ -87,31 +87,6 @@ var products = [
 
 
 ];
-/*
-// Organic Filter 
-function filterSelection(c) {
-  document.querySelectorAll(".item").forEach(item => {
-    if (c === "all" || item.classList.contains(c)) {
-      item.style.display = "flex";
-    } else {
-      item.style.display = "none";
-    }
-  });
-}
-
-document.querySelectorAll('input[name="FilterOrganic"]').forEach(radio => {
-  radio.addEventListener("change", () => {
-    const value = document.querySelector(
-      'input[name="FilterOrganic"]:checked'
-    ).value;
-    filterSelection(value);
-  });
-});
-
-// default
-filterSelection("all");
-*/
-
 
 // given restrictions provided, make a reduced list of products
 // prices should be included in this list, as well as a sort based on price
@@ -180,6 +155,8 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	for(let i = 0; i < second_products.length; i++){
 		product_names.push(second_products[i].name);
 	}
+
+	// final display list of product names displayed
 	return product_names;
 }
 
