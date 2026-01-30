@@ -142,7 +142,7 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 		}
 	}
 
-	//sort by price (bubble sort)
+	//sort lest to most expensive (bubble sort)
 	let switches = true;
     while(switches){
         switches = false;
