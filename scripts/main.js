@@ -29,7 +29,7 @@ function openInfo(evt, tabName) {
 // for client checkboxes
 function isVegetarian(){
 	var checkBox = document.getElementById("vegetarian");
-	if (checkBox.checked == true){
+	if (checkBox.checked){
     	clientVeg = true;
   	}
 	else {
@@ -39,7 +39,7 @@ function isVegetarian(){
 
 function isGlutenFree(){
 	var checkBox = document.getElementById("glutenFree");
-	if (checkBox.checked == true){
+	if (checkBox.checked){
     	clientGF = true;
   	}
 	else {
@@ -48,12 +48,11 @@ function isGlutenFree(){
 }
 
 // need to add functionality back to organics
-function searchOrganic(id){
-	if(id == "organic"){
-
-	}
-	else if(id == "non-organic"){
-
+function searchOrganic(org){
+	var checkBox = document.getElementById(org)
+	if(checkBox.checked){
+		organicState = org;
+		console.log(org);
 	}
 }
 

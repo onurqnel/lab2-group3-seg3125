@@ -18,7 +18,7 @@ var products = [
 	},
 	{
 		name: "Milk 3%",
-		vegetarian: false,
+		vegetarian: true,
 		glutenFree: true,
 		organic: false,
 		price: 5.44
@@ -32,7 +32,7 @@ var products = [
 	},
 	{
 		name: "Yogurt",
-		vegetarian: false,
+		vegetarian: true,
 		glutenFree: true,
 		organic: false,
 		price: 6.40
@@ -117,34 +117,49 @@ filterSelection("all");
 // prices should be included in this list, as well as a sort based on price
 
 function restrictListProducts(prods, restrictionVeg, restrictionGF) {
+	let first_products = [];
 	let product_names = [];
+
+	// sorting first for dietary restrictions
 	for (let i=0; i<prods.length; i++) {
 		// item is vegetarian and gluten-free
-		if((prods[i].vegetarian == true) && (prods[i].glutenFree == true)){
-			product_names.push(prods[i].name);
+		if((prods[i].vegetarian) && (prods[i].glutenFree)){
+			first_products.push(prods[i]);
 		}
 		// client is vegetarian and item is vegetarian
-		else if ((restrictionVeg) && (prods[i].vegetarian == true)){
+		else if ((restrictionVeg) && (prods[i].vegetarian)){
 			//check if gluten matters
-			if((restrictionGF) && (prods[i].glutenFree == true)){
-				product_names.push(prods[i].name);
+			if((restrictionGF) && (prods[i].glutenFree)){
+				first_products.push(prods[i]);
 			}
 			else if(!restrictionGF){
-				product_names.push(prods[i].name);
+				first_products.push(prods[i]);
 			}
 		}
 		// client is not vegetarian
 		else if(!restrictionVeg){
 			//check if gluten matters
-			if((restrictionGF) && (prods[i].glutenFree == true)){
-				product_names.push(prods[i].name);
+			if((restrictionGF) && (prods[i].glutenFree)){
+				first_products.push(prods[i]);
 			}
 			else if(!restrictionGF){
-				product_names.push(prods[i].name);
+				first_products.push(prods[i]);
 			}
 		}
 	}
 
+	// sorting based on organic/non-organic/all 
+	for(let i = 0; i < first_products.length; i++){
+		if(organicState == "organic" && first_products[i].organic){
+			product_names.push(first_products[i].name);
+		}
+		else if(organicState == "non-organic" && !first_products[i].organic){
+			product_names.push(first_products[i].name);
+		}
+		else if (organicState == "all"){
+			product_names.push(first_products[i].name);
+		}
+	}
 	//sort by price underneath (bubble sort idc)
 	return product_names;
 }
