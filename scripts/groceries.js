@@ -118,6 +118,7 @@ filterSelection("all");
 
 function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	let first_products = [];
+	let second_products = [];
 	let product_names = [];
 
 	// sorting first for dietary restrictions
@@ -151,16 +152,34 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	// sorting based on organic/non-organic/all 
 	for(let i = 0; i < first_products.length; i++){
 		if(organicState == "organic" && first_products[i].organic){
-			product_names.push(first_products[i].name);
+			second_products.push(first_products[i]);
 		}
 		else if(organicState == "non-organic" && !first_products[i].organic){
-			product_names.push(first_products[i].name);
+			second_products.push(first_products[i]);
 		}
 		else if (organicState == "all"){
-			product_names.push(first_products[i].name);
+			second_products.push(first_products[i]);
 		}
 	}
-	//sort by price underneath (bubble sort idc)
+
+	//sort by price (bubble sort)
+	let switches = true;
+    while(switches){
+        switches = false;
+        for(let i = 0; i < second_products.length-1; i++){
+            if(second_products[i].price > second_products[i + 1].price){
+                let save = second_products[i];
+                second_products[i] = second_products[i+1];
+                second_products[i+1] = save;
+                switches = true;
+            }
+        }
+    }
+
+	// add into names-only array
+	for(let i = 0; i < second_products.length; i++){
+		product_names.push(second_products[i].name);
+	}
 	return product_names;
 }
 
