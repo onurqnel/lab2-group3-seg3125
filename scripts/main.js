@@ -5,94 +5,87 @@ let clientFrom = 0.00;
 let clientTo = 100.00;
 
 // This function is called when any of the tab is clicked
-// It is adapted from https://www.w3schools.com/howto/howto_js_tabs.asp
-
 function openInfo(evt, tabName) {
 
 	// Get all elements with class="tabcontent" and hide them
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
+	let tabcontent = document.getElementsByClassName("tabcontent");
+	for (let i = 0; i < tabcontent.length; i++) {
 		tabcontent[i].style.display = "none";
 	}
 
 	// Get all elements with class="tablinks" and remove the class "active"
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
+	let tablinks = document.getElementsByClassName("tablinks");
+	for (let i = 0; i < tablinks.length; i++) {
 		tablinks[i].className = tablinks[i].className.replace(" active", "");
 	}
 
 	// Show the current tab, and add an "active" class to the button that opened the tab
 	document.getElementById(tabName).style.display = "block";
 	evt.currentTarget.className += " active";
-
 }
-
 
 // for client checkboxes
 function isVegetarian(){
-	var checkBox = document.getElementById("vegetarian");
-	if (checkBox.checked){
-    	clientVeg = true;
-		populateListProductChoices("displayProduct");
-  	}
-	else {
-     	clientVeg = false;
-		populateListProductChoices("displayProduct");
-  	}
+	clientVeg = document.getElementById("vegetarian").checked;
+	populateListProductChoices("displayProduct");
 }
 
 function isGlutenFree(){
-	var checkBox = document.getElementById("glutenFree");
-	if (checkBox.checked){
-    	clientGF = true;
-		populateListProductChoices("displayProduct");
-
-  	}
-	else {
-     	clientGF = false;
-		populateListProductChoices("displayProduct");
-  	}
+	clientGF = document.getElementById("glutenFree").checked;
+	populateListProductChoices("displayProduct");
 }
 
-// need to add functionality back to organics
+// filter products by organic preference
 function searchOrganic(org){
-	var checkBox = document.getElementById(org)
+	const checkBox = document.getElementById(org);
 	if(checkBox.checked){
 		organicState = org;
-		console.log(org);
 		populateListProductChoices("displayProduct");
 	}
 }
 
 //set price ranges
 function setFrom(from){
-	clientFrom = from
+	from = parseFloat(from);
+	if (from < 0) from = 0;
+	clientFrom = from;
+	
+	// Validate that from is not greater than to
+	if (clientFrom > clientTo) {
+		document.getElementById("from").value = clientTo;
+		clientFrom = clientTo;
+	}
+	
 	populateListProductChoices("displayProduct");
 }
 function setTo(to){
+	to = parseFloat(to);
+	if (to < 0) to = 0;
 	clientTo = to;
+	
+	// Validate that to is not less than from
+	if (clientTo < clientFrom) {
+		document.getElementById("to").value = clientFrom;
+		clientTo = clientFrom;
+	}
+	
     populateListProductChoices("displayProduct");
 }
 
 	
 // generate a checkbox list from a list of products
-// it makes each product name as the label for the checkbos
-
+// it makes each product name as the label for the checkboxes
 function populateListProductChoices(slct2) {
 	//display product
-    var s2 = document.getElementById(slct2);
+    const s2 = document.getElementById(slct2);
 	
 	// s2 represents the <div> in the Products tab, which shows the product list, so we first set it empty
     s2.innerHTML = "";
 		
 	// obtain a reduced list of products based on restrictions
-    var optionArray = restrictListProducts(products, clientVeg, clientGF);
-
-	// for each item in the array, create a checkbox element, each containing information such as:
-	// <input type="checkbox" name="product" value="Bread">
-	// <label for="Bread">Bread/label><br>
-
-	// Gropup by category 
+    const optionArray = restrictListProducts(products, clientVeg, clientGF);
+ 
+	// Group by category 
 	const grouped = {};
 	for (const p of optionArray){
 		if (!grouped[p.category]) grouped[p.category]=[];
@@ -139,33 +132,33 @@ function populateListProductChoices(slct2) {
 			label.appendChild(check_Box);
 
 
-		// quantity
-	  const qty = document.createElement("div");
-      qty.className = "qty";
+			// quantity
+			const qty = document.createElement("div");
+			qty.className = "qty";
 
-      const qty_Label = document.createElement("span");
-      qty_Label.textContent = "quantity";
+			const qty_Label = document.createElement("span");
+			qty_Label.textContent = "quantity";
 
-      const qty_Input = document.createElement("input");
-      qty_Input.className = "quantity";
-      qty_Input.type = "number";
-      qty_Input.min = "0";
-      qty_Input.value = "0";
-	  qty_Input.dataset.product=p.name;
+			const qty_Input = document.createElement("input");
+			qty_Input.className = "quantity";
+			qty_Input.type = "number";
+			qty_Input.min = "0";
+			qty_Input.value = "0";
+			qty_Input.dataset.product = p.name;
 
-      qty.appendChild(qty_Label);
-      qty.appendChild(qty_Input);
+			qty.appendChild(qty_Label);
+			qty.appendChild(qty_Input);
 
-      // Optional unit (for meats)
-      if (p.unit) {
-        const unitSpan = document.createElement("span");
-        unitSpan.className = "unit";
-        unitSpan.textContent = " " + p.unit;
-        qty.appendChild(unitSpan);
-	  }
-	  label.appendChild(qty);
-	  li.appendChild(label);
-	  products_ul.appendChild(li);
+			// Optional unit (for meats)
+			if (p.unit) {
+				const unitSpan = document.createElement("span");
+				unitSpan.className = "unit";
+				unitSpan.textContent = " " + p.unit;
+				qty.appendChild(unitSpan);
+			}
+			label.appendChild(qty);
+			li.appendChild(label);
+			products_ul.appendChild(li);
 
 	}
 	category_li.appendChild(products_ul);
@@ -174,32 +167,100 @@ s2.appendChild(ul);
 
 }
 	
-// This function is called when the "Add selected items to cart" button in clicked
-// The purpose is to build the HTML to be displayed (a Paragraph) 
-// We build a paragraph to contain the list of selected items, and the total price
+// This function is called when the "Add selected items to cart" button is clicked
+// The purpose is to build the HTML to be displayed in the cart
+function createCell(text, className = "") {
+	const td = document.createElement("td");
+	td.textContent = text;
+	if (className) td.className = className;
+	return td;
+}
 
 function selectedItems(){
-	
-	var ele = document.getElementsByName("product");
-	var chosenProducts = [];
-	
-	var c = document.getElementById('displayCart');
+	const ele = document.getElementsByName("product");
+	const chosenProducts = [];
+	const c = document.getElementById('displayCart');
 	c.innerHTML = "";
 	
-	// build list of selected item
-	var para = document.createElement("P");
-	para.innerHTML = "You selected : ";
-	para.appendChild(document.createElement("br"));
-	for (i = 0; i < ele.length; i++) { 
+	// Collect selected products with quantities
+	for (let i = 0; i < ele.length; i++) { 
 		if (ele[i].checked) {
-			para.appendChild(document.createTextNode(ele[i].value));
-			para.appendChild(document.createElement("br"));
-			chosenProducts.push(ele[i].value);
+			const productName = ele[i].value;
+			const quantityInput = document.querySelector(`input.quantity[data-product="${productName}"]`);
+			const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+			chosenProducts.push({name: productName, quantity: quantity});
 		}
 	}
-		
-	// add paragraph and total price
-	c.appendChild(para);
-	c.appendChild(document.createTextNode("Total Price is " + getTotalPrice(chosenProducts)));
-		
+	
+	// Check if cart is empty
+	if (chosenProducts.length === 0) {
+		const emptyMsg = document.createElement("p");
+		emptyMsg.className = "empty-cart";
+		emptyMsg.textContent = "Your cart is empty. Please select items from the Products tab.";
+		c.appendChild(emptyMsg);
+		return;
+	}
+	
+	// Create cart header
+	const header = document.createElement("h4");
+	header.textContent = "Shopping Cart";
+	c.appendChild(header);
+	
+	// Create table for cart items
+	const table = document.createElement("table");
+	table.className = "cart-table";
+	
+	// Table header
+	const thead = document.createElement("thead");
+	const headerRow = document.createElement("tr");
+	["Product", "Quantity", "Unit Price", "Subtotal"].forEach(text => {
+		const th = document.createElement("th");
+		th.textContent = text;
+		headerRow.appendChild(th);
+	});
+	thead.appendChild(headerRow);
+	table.appendChild(thead);
+	
+	// Table body with products
+	const tbody = document.createElement("tbody");
+	chosenProducts.forEach(item => {
+		const product = products.find(p => p.name === item.name);
+		if (product) {
+			const row = document.createElement("tr");
+			
+			// Product name
+			row.appendChild(createCell(product.name + (product.unit ? " " + product.unit : "")));
+			
+			// Quantity
+			row.appendChild(createCell(item.quantity, "center"));
+			
+			// Unit price
+			row.appendChild(createCell("$" + product.price.toFixed(2), "right"));
+			
+			// Subtotal
+			row.appendChild(createCell("$" + (product.price * item.quantity).toFixed(2), "right"));
+			
+			tbody.appendChild(row);
+		}
+	});
+	table.appendChild(tbody);
+	
+	// Table footer with total
+	const tfoot = document.createElement("tfoot");
+	const totalRow = document.createElement("tr");
+	const totalLabelCell = document.createElement("td");
+	totalLabelCell.colSpan = 3;
+	totalLabelCell.textContent = "Total:";
+	totalLabelCell.className = "total-label";
+	totalRow.appendChild(totalLabelCell);
+	
+	const totalAmountCell = document.createElement("td");
+	totalAmountCell.textContent = "$" + getTotalPrice(chosenProducts).toFixed(2);
+	totalAmountCell.className = "total-amount";
+	totalRow.appendChild(totalAmountCell);
+	
+	tfoot.appendChild(totalRow);
+	table.appendChild(tfoot);
+	
+	c.appendChild(table);
 }

@@ -1,6 +1,5 @@
 // Array of products, each product is an object with different fieldset
 // A set of ingredients should be added to products		 
-
 var products = [
 	{
 		name: "White Bread",
@@ -58,7 +57,7 @@ var products = [
 	},
 	{
 		name: "Cucumber",
-		category: "Fruits",
+		category: "Veggies",
 		image: "images/cucumber.png",
 		vegetarian: true,
 		glutenFree: true,
@@ -121,7 +120,6 @@ var products = [
 
 // given restrictions provided, make a reduced list of products
 // prices should be included in this list, as well as a sort based on price
-
 function restrictListProducts(prods, restrictionVeg, restrictionGF) {
 	let first_products = [];
 	let second_products = [];
