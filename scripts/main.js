@@ -264,3 +264,8 @@ function selectedItems(){
 	
 	c.appendChild(table);
 }
+
+// Open the Client tab by default when page loads
+window.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('.tablinks').click();
+});

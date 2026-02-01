@@ -1,79 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Good Food Grocery Store</title>
-	<link href="styles/style.css" rel="stylesheet" type="text/css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Good Food Grocery Store</title>
+    <!-- Main stylesheet -->
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+  </head>
 
-<body>
-<h1>
-  Welcome to Good Food Grocery store ! 
-</h1>
+  <body>
+    <!-- Main container wrapper -->
+    <div class="container">
+      <!-- Page header -->
+      <header>
+        <h1>Welcome to Good Food Grocery Store</h1>
+      </header>
 
-<!-- Tab links, each one with an onclick event associated with it -->
-<div class="tab">
-  <button class="tablinks" onclick="openInfo(event, 'Client')">Client</button>
-  <button class="tablinks" onclick="openInfo(event, 'Products')">Products</button>
-  <button class="tablinks" onclick="openInfo(event, 'Cart')">Cart</button>
-</div>
+      <!-- Tab navigation buttons -->
+      <div class="tab">
+        <button class="tablinks" onclick="openInfo(event, 'Client')">
+          Client
+        </button>
+        <button class="tablinks" onclick="openInfo(event, 'Products')">
+          Products
+        </button>
+        <button class="tablinks" onclick="openInfo(event, 'Cart')">Cart</button>
+      </div>
 
-<!-- Tab content -->
-<div id="Client" class="tabcontent">
-  <h3>Client Information</h3>
-  <p>	Choose a Category:</p>
-  <div id="dietSelect" name="dietSelect" onchange="populateListProductChoices('displayProduct')">
-    <input type="checkbox" id="vegetarian" onclick="isVegetarian()" name="vegetarian" value="Vegetarian">
-    <label for="vegetarian"> Vegetarian</label><br>
-    <input type="checkbox" id="glutenFree" onclick="isGlutenFree()" name="glutenFree" value="GlutenFree">
-    <label for="glutenFree"> Gluten Free</label>
-  </div>
-  <br>
-</div>
+      <!-- Client tab: Dietary preferences selection -->
+      <div id="Client" class="tabcontent">
+        <div class="card">
+          <h3>Client Information</h3>
+          <p>Choose your dietary preferences:</p>
+          <!-- Dietary restrictions checkboxes -->
+          <div
+            id="dietSelect"
+            class="checkbox-group"
+            name="dietSelect"
+            onchange="populateListProductChoices('displayProduct')"
+          >
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                id="vegetarian"
+                onclick="isVegetarian()"
+                name="vegetarian"
+                value="Vegetarian"
+              />
+              <span>Vegetarian</span>
+            </label>
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                id="glutenFree"
+                onclick="isGlutenFree()"
+                name="glutenFree"
+                value="GlutenFree"
+              />
+              <span>Gluten Free</span>
+            </label>
+          </div>
+        </div>
+      </div>
 
-<div id="Products" class="tabcontent">
-  <h3>Your targeted products</h3>
-  <p>We preselected products based on your restrictions.</p>
-	 Choose items to buy:
-   <div id="filter-organic">
-    <b>Filter by:</b> <br>
-    <div id="organicSelect" name="organicSelect" onchange="populateListProductChoices('displayProduct')">
-      <label>
-        <input type="radio" id="all" name ="FilterOrganic" value="all" checked onclick="searchOrganic(this.id)">
-        All
-      </label>
-      <label>
-        <input type="radio" id="organic" name ="FilterOrganic" value="organic" onclick="searchOrganic(this.id)">
-        Organic
-      </label>
-      <label>
-        <input type="radio" id="non-organic" name="FilterOrganic" value="non-organic" onclick="searchOrganic(this.id)">
-        Non Organic
-      </label>
+      <!-- Products tab: Browse and filter products -->
+      <div id="Products" class="tabcontent">
+        <div class="card">
+          <h3>Your Targeted Products</h3>
+          <p>We preselected products based on your dietary preferences.</p>
+
+          <!-- Filters section -->
+          <div class="filters">
+            <!-- Organic filter -->
+            <div class="filter-section">
+              <label class="filter-label">Filter by:</label>
+              <div
+                id="organicSelect"
+                class="radio-group"
+                name="organicSelect"
+                onchange="populateListProductChoices('displayProduct')"
+              >
+                <label class="radio-label">
+                  <input
+                    type="radio"
+                    id="all"
+                    name="FilterOrganic"
+                    value="all"
+                    checked
+                    onclick="searchOrganic(this.id)"
+                  />
+                  <span>All</span>
+                </label>
+                <label class="radio-label">
+                  <input
+                    type="radio"
+                    id="organic"
+                    name="FilterOrganic"
+                    value="organic"
+                    onclick="searchOrganic(this.id)"
+                  />
+                  <span>Organic</span>
+                </label>
+                <label class="radio-label">
+                  <input
+                    type="radio"
+                    id="non-organic"
+                    name="FilterOrganic"
+                    value="non-organic"
+                    onclick="searchOrganic(this.id)"
+                  />
+                  <span>Non Organic</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Price range filter -->
+            <div class="filter-section">
+              <label class="filter-label">Price Range:</label>
+              <div class="price-inputs">
+                <input
+                  class="price-input"
+                  type="number"
+                  min="0"
+                  value="0.00"
+                  id="from"
+                  onchange="setFrom(value)"
+                  step="0.01"
+                  placeholder="Min"
+                />
+                <span>to</span>
+                <input
+                  class="price-input"
+                  type="number"
+                  min="0"
+                  value="100.00"
+                  id="to"
+                  onchange="setTo(value)"
+                  step="0.01"
+                  placeholder="Max"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Product list dynamically populated by JavaScript -->
+          <div id="displayProduct"></div>
+
+          <!-- Add to cart button -->
+          <button
+            id="addCart"
+            type="button"
+            class="btn-primary"
+            onclick="selectedItems()"
+          >
+            Add Items to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart tab: Review selected items -->
+      <div id="Cart" class="tabcontent">
+        <div class="card">
+          <h3>Shopping Cart</h3>
+          <p>Review your selected items below.</p>
+          <!-- Cart table dynamically populated by JavaScript -->
+          <div id="displayCart"></div>
+        </div>
+      </div>
     </div>
-   </div>
 
-   <div id="priceRange" onchange="populateListProductChoices('displayProduct')">
-    <p>What is your price range? (cost per individual)</p>
-    <p>From <input class="quantity" type ="number" min ="0" value="0.00" id="from" onchange="setFrom(value)" step="0.01"> 
-      to <input class="quantity" type ="number" min ="0" value="100.00" id="to" onchange="setTo(value)" step="0.01"></p>
-   </div>
+    <!-- Footer with team information -->
+    <footer>
+      <p>&copy; 2026 Good Food Grocery Store</p>
+      <p class="team">Group 3: Onur Onel, Kate Boyd, Jessy Helaleh</p>
+    </footer>
 
-	 <div id="displayProduct"></div>
-  
-	 <button id="addCart" type="button" class="block" onclick="selectedItems()">
-		Add selected items to cart.
-	</button>
-</div>
-
-<div id="Cart" class="tabcontent">
-  <h3>Cart</h3>
-  <p>Here is your cart.</p>
-  <div id="displayCart"></div>
-</div>
-
-<script src="scripts/groceries.js"></script>
-<script src="scripts/main.js"></script>
-
-</body>
+    <!-- JavaScript files -->
+    <script src="scripts/groceries.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
 </html>
