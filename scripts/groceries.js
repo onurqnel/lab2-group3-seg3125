@@ -187,22 +187,15 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
         }
     }
 	return second_products;
-
-	// add into names-only array
-	for(let i = 0; i < second_products.length; i++){
-		product_names.push(second_products[i].name);
-	}
-
-	// final display list of product names displayed
-	return product_names;
 }
 
-// Calculate the total price of items, with received parameter being a list of products
+// Calculate the total price of items, with received parameter being a list of product objects with quantities
 function getTotalPrice(chosenProducts) {
-	totalPrice = 0;
-	for (let i=0; i<products.length; i+=1) {
-		if (chosenProducts.indexOf(products[i].name) > -1){
-			totalPrice += products[i].price;
+	let totalPrice = 0;
+	for (let i=0; i<chosenProducts.length; i+=1) {
+		const product = products.find(p => p.name === chosenProducts[i].name);
+		if (product) {
+			totalPrice += product.price * chosenProducts[i].quantity;
 		}
 	}
 	return totalPrice;
