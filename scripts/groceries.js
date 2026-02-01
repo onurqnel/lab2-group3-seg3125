@@ -4,6 +4,8 @@
 var products = [
 	{
 		name: "White Bread",
+		category: "Bread",
+		image: "images/whitebread.png",
 		vegetarian: true,
 		glutenFree: false,
 		organic: false,
@@ -12,12 +14,16 @@ var products = [
 	{
 		name: "Gluten-free Bread",
 		vegetarian: true,
+		category: "Bread",
+		image: "images/glutenfreebread.png",
 		glutenFree: true,
 		organic: true,
 		price: 6.90
 	},
 	{
 		name: "Milk 3%",
+		category: "Dairy",
+		image: "images/milk.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: false,
@@ -25,6 +31,8 @@ var products = [
 	},
 	{
 		name: "Oat Milk",
+		category: "Dairy",
+		image: "images/oatmilk.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: true,
@@ -32,6 +40,8 @@ var products = [
 	},
 	{
 		name: "Yogurt",
+		category: "Dairy",
+		image: "images/yogurt.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: false,
@@ -39,6 +49,8 @@ var products = [
 	},
 	{
 		name: "Tomatoes",
+		category: "Veggies",
+		image: "images/tomato.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: true,
@@ -46,6 +58,8 @@ var products = [
 	},
 	{
 		name: "Cucumber",
+		category: "Fruits",
+		image: "images/cucumber.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: false,
@@ -53,6 +67,8 @@ var products = [
 	},
 	{
 		name: "Apples",
+		category: "Fruits",
+		image: "images/apple.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic: true,
@@ -60,6 +76,8 @@ var products = [
 	},
 	{
 		name: "Oranges",
+		category: "Fruits",
+		image: "images/orange.png",
 		vegetarian: true,
 		glutenFree: true,
 		organic:false,
@@ -67,22 +85,35 @@ var products = [
 	},
 	{
 		name: "Salmon",
+		category: "Meat",
+		image: "images/salmon.png",
 		vegetarian: false,
 		glutenFree: true,
-		organic: false,		price: 10.00	},
+		organic: false,		
+		price: 10.00,
+		unit: "(in lb)"
+
+	},
 	{
 		name: "Beef",
+		category: "Meat",
+		image: "images/beef.png",
 		vegetarian: false,
 		glutenFree: true,
 		organic: true,
-		price: 9.50
+		price: 9.50,
+		unit: "(in lb)"
+
 	},
 	{
 		name: "Chicken",
+		category: "Meat",
+		image: "images/chicken.png",
 		vegetarian: false,
 		glutenFree: true,
 		organic: false,
-		price: 10.80
+		price: 10.80,
+		unit: "(in lb)"
 	},
 
 
@@ -155,6 +186,7 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
             }
         }
     }
+	return second_products;
 
 	// add into names-only array
 	for(let i = 0; i < second_products.length; i++){

@@ -1,5 +1,5 @@
 let clientVeg = false;
-let clientGF = true;
+let clientGF = false;
 let organicState = "all";
 let clientFrom = 0.00;
 let clientTo = 100.00;
@@ -33,9 +33,11 @@ function isVegetarian(){
 	var checkBox = document.getElementById("vegetarian");
 	if (checkBox.checked){
     	clientVeg = true;
+		populateListProductChoices("displayProduct");
   	}
 	else {
      	clientVeg = false;
+		populateListProductChoices("displayProduct");
   	}
 }
 
@@ -43,9 +45,12 @@ function isGlutenFree(){
 	var checkBox = document.getElementById("glutenFree");
 	if (checkBox.checked){
     	clientGF = true;
+		populateListProductChoices("displayProduct");
+
   	}
 	else {
      	clientGF = false;
+		populateListProductChoices("displayProduct");
   	}
 }
 
@@ -55,15 +60,18 @@ function searchOrganic(org){
 	if(checkBox.checked){
 		organicState = org;
 		console.log(org);
+		populateListProductChoices("displayProduct");
 	}
 }
 
 //set price ranges
 function setFrom(from){
 	clientFrom = from
+	populateListProductChoices("displayProduct");
 }
 function setTo(to){
 	clientTo = to;
+    populateListProductChoices("displayProduct");
 }
 
 	
@@ -83,26 +91,87 @@ function populateListProductChoices(slct2) {
 	// for each item in the array, create a checkbox element, each containing information such as:
 	// <input type="checkbox" name="product" value="Bread">
 	// <label for="Bread">Bread/label><br>
-		
-	for (i = 0; i < optionArray.length; i++) {
-			
-		var productName = optionArray[i];
-		// create the checkbox and add in HTML DOM
-		var checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.name = "product";
-		checkbox.value = productName;
-		s2.appendChild(checkbox);
-		
-		// create a label for the checkbox, and also add in HTML DOM
-		var label = document.createElement('label')
-		label.htmlFor = productName;
-		label.appendChild(document.createTextNode(productName));
-		s2.appendChild(label);
-		
-		// create a breakline node and add in HTML DOM
-		s2.appendChild(document.createElement("br"));    
+
+	// Gropup by category 
+	const grouped = {};
+	for (const p of optionArray){
+		if (!grouped[p.category]) grouped[p.category]=[];
+		grouped[p.category].push(p);
+	}	
+	//create <ul> 
+	const ul = document.createElement("ul");
+	ul.style.listStyleType ="none";
+	ul.style.padding ="0";
+
+	for (const category of Object.keys(grouped)) {
+		const category_li = document.createElement("li");
+		category_li.textContent = category;
+		ul.appendChild(category_li);
+	
+	   const products_ul = document.createElement("ul");
+	   products_ul.style.listStyleType = "none";
+	   products_ul.style.paddingLeft = "0";
+
+	    for (const p of grouped[category]) {
+		   const li = document.createElement("li");
+
+		   const label = document.createElement("label");
+		   label.className = "item " + (p.organic ? "organic" : "non-organic");
+
+		    const img = document.createElement("img");
+		    img.src = p.image;
+		    img.alt = p.name;
+		    label.appendChild(img);
+
+			const check_Box = document.createElement("div");
+			check_Box.className ="check-box";
+
+			const checkbox = document.createElement("input");
+			checkbox.type = "checkbox";
+			checkbox.name = "product";
+			checkbox.value = p.name;
+
+			const name_span= document.createElement("span");
+			name_span.textContent =p.name;
+
+			check_Box.appendChild(checkbox);
+			check_Box.appendChild(name_span);
+			label.appendChild(check_Box);
+
+
+		// quantity
+	  const qty = document.createElement("div");
+      qty.className = "qty";
+
+      const qty_Label = document.createElement("span");
+      qty_Label.textContent = "quantity";
+
+      const qty_Input = document.createElement("input");
+      qty_Input.className = "quantity";
+      qty_Input.type = "number";
+      qty_Input.min = "0";
+      qty_Input.value = "0";
+	  qty_Input.dataset.product=p.name;
+
+      qty.appendChild(qty_Label);
+      qty.appendChild(qty_Input);
+
+      // Optional unit (for meats)
+      if (p.unit) {
+        const unitSpan = document.createElement("span");
+        unitSpan.className = "unit";
+        unitSpan.textContent = " " + p.unit;
+        qty.appendChild(unitSpan);
+	  }
+	  label.appendChild(qty);
+	  li.appendChild(label);
+	  products_ul.appendChild(li);
+
 	}
+	category_li.appendChild(products_ul);
+}
+s2.appendChild(ul);
+
 }
 	
 // This function is called when the "Add selected items to cart" button in clicked
