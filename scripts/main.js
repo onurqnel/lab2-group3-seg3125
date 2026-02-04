@@ -21,7 +21,7 @@ function getVals(){
   if( slide1 > slide2 ){ var tmp = slide2; slide2 = slide1; slide1 = tmp; }
   
   var displayElement = parent.getElementsByClassName("rangeValues")[0];
-      displayElement.innerHTML = slide1 + " - " + slide2;
+      displayElement.innerHTML =  "$" + slide1 + " - $" + slide2;
 }
 
 window.onload = function(){
@@ -177,7 +177,7 @@ function populateListProductChoices(slct2) {
 			qty.className = "qty";
 
 			const qty_Label = document.createElement("span");
-			qty_Label.textContent = "quantity";
+			qty_Label.textContent = "Quantity";
 
 			const qty_Input = document.createElement("input");
 			qty_Input.className = "quantity";
@@ -217,6 +217,9 @@ function createCell(text, className = "") {
 }
 
 function selectedItems(){
+	// automatically shows cart when "add item to cart" is clicked
+	document.getElementById("cart").click();
+	
 	const ele = document.getElementsByName("product");
 	const chosenProducts = [];
 	const c = document.getElementById('displayCart');
