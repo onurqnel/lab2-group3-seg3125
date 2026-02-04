@@ -115,29 +115,32 @@
 
             <!-- Price range filter -->
             <div class="filter-section">
+
               <label class="filter-label">Price Range:</label>
+
+              <!--
+              Source - https://stackoverflow.com/a/31083391
+              Posted by Gary, modified by community. See post 'Timeline' for change history
+              Retrieved 2026-02-04, License - CC BY-SA 3.0
+              -->
+
+              <!-- Display price ranges 
+              <div id = displayPrice>
+                <p> From 0 to 100 </p>
+              </div>-->
+              
+              <!-- Price range slider-->
+              <!--
+              Source - https://stackoverflow.com/a/31083391
+              Posted by Gary, modified by community. See post 'Timeline' for change history
+              Retrieved 2026-02-04, License - CC BY-SA 3.0
+              -->
               <div class="price-inputs">
-                <input
-                  class="price-input"
-                  type="number"
-                  min="0"
-                  value="0.00"
-                  id="from"
-                  onchange="setFrom(value)"
-                  step="0.01"
-                  placeholder="Min"
-                />
-                <span>to</span>
-                <input
-                  class="price-input"
-                  type="number"
-                  min="0"
-                  value="100.00"
-                  id="to"
-                  onchange="setTo(value)"
-                  step="0.01"
-                  placeholder="Max"
-                />
+                <section class="range-slider">
+                  <span class="rangeValues"></span>
+                  <input value="0.00" min="0.00" max="11.00" step="0.01" type="range" id="from" onchange="setFrom(value)">
+                  <input value="11.00" min="0.01" max="11.00" step="0.01" type="range" id="to" onchange="setTo(value)">
+                </section>
               </div>
             </div>
           </div>

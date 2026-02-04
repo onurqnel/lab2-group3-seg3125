@@ -2,7 +2,39 @@ let clientVeg = false;
 let clientGF = false;
 let organicState = "all";
 let clientFrom = 0.00;
-let clientTo = 100.00;
+let clientTo = 11.00;
+
+// Source - https://stackoverflow.com/a/31083391
+// Posted by Gary, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-02-04, License - CC BY-SA 3.0
+
+function getVals(){
+  // Get slider values
+  var parent = this.parentNode;
+  var slides = parent.getElementsByTagName("input");
+    var slide1 = parseFloat( slides[0].value );
+    var slide2 = parseFloat( slides[1].value );
+  // Neither slider will clip the other, so make sure we determine which is larger
+  if( slide1 > slide2 ){ var tmp = slide2; slide2 = slide1; slide1 = tmp; }
+  
+  var displayElement = parent.getElementsByClassName("rangeValues")[0];
+      displayElement.innerHTML = slide1 + " - " + slide2;
+}
+
+window.onload = function(){
+  // Initialize Sliders
+  var sliderSections = document.getElementsByClassName("range-slider");
+      for( var x = 0; x < sliderSections.length; x++ ){
+        var sliders = sliderSections[x].getElementsByTagName("input");
+        for( var y = 0; y < sliders.length; y++ ){
+          if( sliders[y].type ==="range" ){
+            sliders[y].oninput = getVals;
+            // Manually trigger event first time to display values
+            sliders[y].oninput();
+          }
+        }
+      }
+}
 
 // This function is called when any of the tab is clicked
 function openInfo(evt, tabName) {
@@ -81,6 +113,11 @@ function populateListProductChoices(slct2) {
 	
 	// s2 represents the <div> in the Products tab, which shows the product list, so we first set it empty
     s2.innerHTML = "";
+	
+	//show the price ranges
+	// let priceDisplayDiv = document.getElementById(displayPrice);
+	// let line = "From " + clientFrom + " to " + clientTo;
+	// priceDisplayDiv.innerText = "line";
 		
 	// obtain a reduced list of products based on restrictions
     const optionArray = restrictListProducts(products, clientVeg, clientGF);
