@@ -4,6 +4,9 @@ let organicState = "all";
 let clientFrom = 0.00;
 let clientTo = 11.00;
 
+// automatically shows products
+populateListProductChoices("displayProduct");
+
 // Source - https://stackoverflow.com/a/31083391
 // Posted by Gary, modified by community. See post 'Timeline' for change history
 // Retrieved 2026-02-04, License - CC BY-SA 3.0
