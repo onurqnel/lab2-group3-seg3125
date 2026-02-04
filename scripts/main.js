@@ -116,11 +116,6 @@ function populateListProductChoices(slct2) {
 	
 	// s2 represents the <div> in the Products tab, which shows the product list, so we first set it empty
     s2.innerHTML = "";
-	
-	//show the price ranges
-	// let priceDisplayDiv = document.getElementById(displayPrice);
-	// let line = "From " + clientFrom + " to " + clientTo;
-	// priceDisplayDiv.innerText = "line";
 		
 	// obtain a reduced list of products based on restrictions
     const optionArray = restrictListProducts(products, clientVeg, clientGF);
@@ -163,6 +158,14 @@ function populateListProductChoices(slct2) {
 			checkbox.type = "checkbox";
 			checkbox.name = "product";
 			checkbox.value = p.name;
+			
+			// Auto-set quantity to 1 when checked, 0 when unchecked
+			checkbox.addEventListener('change', function() {
+				const qtyInput = document.querySelector(`input.quantity[data-product="${p.name}"]`);
+				if (qtyInput) {
+					qtyInput.value = this.checked ? "1" : "0";
+				}
+			});
 
 			const name_span= document.createElement("span");
 			name_span.textContent =p.name;
