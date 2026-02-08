@@ -141,84 +141,35 @@ var products = [
   },
 ];
 
-// given restrictions provided, make a reduced list of products
-// prices should be included in this list, as well as a sort based on price
+// Given restrictions, return a filtered and sorted list of products
 function restrictListProducts(prods, restrictionVeg, restrictionGF) {
-  let first_products = [];
-  let second_products = [];
-  let product_names = [];
-
-  // go through all potential products to determine display
-  for (let i = 0; i < prods.length; i++) {
-    // if item is within price range
-    if (prods[i].price >= clientFrom && prods[i].price <= clientTo) {
-      // sorting first for dietary restrictions
-
-      // item is vegetarian and gluten-free
-      if (prods[i].vegetarian && prods[i].glutenFree) {
-        first_products.push(prods[i]);
-      }
-      // client is vegetarian and item is vegetarian
-      else if (restrictionVeg && prods[i].vegetarian) {
-        //check if gluten matters
-        if (restrictionGF && prods[i].glutenFree) {
-          first_products.push(prods[i]);
-        } else if (!restrictionGF) {
-          first_products.push(prods[i]);
-        }
-      }
-      // client is not vegetarian
-      else if (!restrictionVeg) {
-        //check if gluten matters
-        if (restrictionGF && prods[i].glutenFree) {
-          first_products.push(prods[i]);
-        } else if (!restrictionGF) {
-          first_products.push(prods[i]);
-        }
-      }
-    }
-  }
-
-  // filter by category
-  if (typeof clientCategory !== "undefined" && clientCategory !== "all") {
-    first_products = first_products.filter(p => p.category === clientCategory);
-  }
-
-  // sorting based on organic/non-organic/all
-  for (let i = 0; i < first_products.length; i++) {
-    if (organicState == "organic" && first_products[i].organic) {
-      second_products.push(first_products[i]);
-    } else if (organicState == "non-organic" && !first_products[i].organic) {
-      second_products.push(first_products[i]);
-    } else if (organicState == "all") {
-      second_products.push(first_products[i]);
-    }
-  }
-
-  //sort lest to most expensive (bubble sort)
-  let switches = true;
-  while (switches) {
-    switches = false;
-    for (let i = 0; i < second_products.length - 1; i++) {
-      if (second_products[i].price > second_products[i + 1].price) {
-        let save = second_products[i];
-        second_products[i] = second_products[i + 1];
-        second_products[i + 1] = save;
-        switches = true;
-      }
-    }
-  }
-  return second_products;
+  return (
+    prods
+      .filter((p) => {
+        // Price range
+        if (p.price < clientFrom || p.price > clientTo) return false;
+        // Dietary restrictions: exclude items that violate checked preferences
+        if (restrictionVeg && !p.vegetarian) return false;
+        if (restrictionGF && !p.glutenFree) return false;
+        return true;
+      })
+      // Category filter
+      .filter((p) => clientCategory === "all" || p.category === clientCategory)
+      // Organic filter
+      .filter((p) => {
+        if (organicState === "organic") return p.organic;
+        if (organicState === "non-organic") return !p.organic;
+        return true; // "all"
+      })
+      // Sort least to most expensive
+      .sort((a, b) => a.price - b.price)
+  );
 }
 
-// Calculate the total price of items, with received parameter being a list of product objects with quantities
+// Calculate the total price of items, given a list of {name, quantity} objects
 function getTotalPrice(chosenProducts) {
-  let totalPrice = 0;
-  for (let i = 0; i < chosenProducts.length; i += 1) {
-    const product = products.find((p) => p.name === chosenProducts[i].name);
-    if (product) {
-      totalPrice += product.price * chosenProducts[i].quantity;
-    }
-  }
-  return totalPrice;
+  return chosenProducts.reduce((total, item) => {
+    const product = products.find((p) => p.name === item.name);
+    return total + (product ? product.price * item.quantity : 0);
+  }, 0);
 }

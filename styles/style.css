@@ -85,8 +85,7 @@ h1 {
   border-radius: 8px;
 }
 
-#Products .card,
-#Client .card {
+#Products .card {
   text-align: center;
 }
 
@@ -117,7 +116,7 @@ h1 {
   cursor: pointer;
   transition: all 0.3s ease;
   width: 220px;
-  height: 260px;
+  height: 290px;
   overflow: hidden;
 }
 
@@ -143,6 +142,15 @@ h1 {
   font-size: 1.05em;
   font-weight: 500;
   color: #333;
+}
+
+.product-price {
+  font-size: 1.1em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .qty {
@@ -270,11 +278,34 @@ h1 {
   margin-bottom: 12px;
 }
 
+.dietary-preferences {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 30px;
+}
+
+.dietary-preferences h3 {
+  font-size: 1.4em;
+  margin-bottom: 6px;
+}
+
+.dietary-preferences p {
+  margin-bottom: 14px;
+}
+
 .checkbox-group {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
+}
+
+.checkbox-group--inline {
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
 }
 
 .checkbox-label {

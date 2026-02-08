@@ -5,8 +5,10 @@
     <title>Good Food Grocery Store</title>
     <!-- Main stylesheet -->
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -19,54 +21,50 @@
 
       <!-- Tab navigation buttons -->
       <div class="tab">
-        <button class="tablinks" onclick="openInfo(event, 'Client')">
-          Client
-        </button>
         <button class="tablinks" onclick="openInfo(event, 'Products')">
           Products
         </button>
-        <button id="cart" class="tablinks" onclick="openInfo(event, 'Cart')">Cart</button>
-      </div>
-
-      <!-- Client tab: Dietary preferences selection -->
-      <div id="Client" class="tabcontent">
-        <div class="card">
-          <h3>Client Information</h3>
-          <p>Choose your dietary preferences:</p>
-          <!-- Dietary restrictions checkboxes -->
-          <div
-            id="dietSelect"
-            class="checkbox-group"
-            name="dietSelect"
-            onchange="populateListProductChoices('displayProduct')"
-          >
-            <label class="checkbox-label">
-              <input
-                type="checkbox"
-                id="vegetarian"
-                onclick="isVegetarian()"
-                name="vegetarian"
-                value="Vegetarian"
-              />
-              <span>Vegetarian</span>
-            </label>
-            <label class="checkbox-label">
-              <input
-                type="checkbox"
-                id="glutenFree"
-                onclick="isGlutenFree()"
-                name="glutenFree"
-                value="GlutenFree"
-              />
-              <span>Gluten Intolerance</span>
-            </label>
-          </div>
-        </div>
+        <button id="cart" class="tablinks" onclick="openInfo(event, 'Cart')">
+          Cart
+        </button>
       </div>
 
       <!-- Products tab: Browse and filter products -->
       <div id="Products" class="tabcontent">
         <div class="card">
+          <!-- Dietary preferences (merged from Client tab) -->
+          <div class="dietary-preferences">
+            <h3>Client Information</h3>
+            <p>Choose your dietary preferences:</p>
+            <div
+              id="dietSelect"
+              class="checkbox-group checkbox-group--inline"
+              name="dietSelect"
+              onchange="populateListProductChoices('displayProduct')"
+            >
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="vegetarian"
+                  onclick="isVegetarian()"
+                  name="vegetarian"
+                  value="Vegetarian"
+                />
+                <span>Vegetarian</span>
+              </label>
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  id="glutenFree"
+                  onclick="isGlutenFree()"
+                  name="glutenFree"
+                  value="GlutenFree"
+                />
+                <span>Gluten Intolerance</span>
+              </label>
+            </div>
+          </div>
+
           <h3>Your Targeted Products</h3>
           <p>We preselected products based on your dietary preferences.</p>
 
@@ -120,7 +118,11 @@
               <!-- Category filter -->
               <div class="filter-section">
                 <label class="filter-label">Category:</label>
-                <select id="categorySelect" class="category-dropdown" onchange="setCategory(this.value)">
+                <select
+                  id="categorySelect"
+                  class="category-dropdown"
+                  onchange="setCategory(this.value)"
+                >
                   <option value="all">All Categories</option>
                   <option value="Bread">Bread</option>
                   <option value="Dairy">Dairy</option>
@@ -133,16 +135,27 @@
               <!-- Price range filter -->
               <div class="filter-section">
                 <label class="filter-label">Price Range:</label>
-                <!--
-                Source - https://stackoverflow.com/a/31083391
-                Posted by Gary, modified by community. See post 'Timeline' for change history
-                Retrieved 2026-02-04, License - CC BY-SA 3.0
-                -->
                 <div class="price-inputs">
                   <section class="range-slider">
                     <span class="rangeValues"></span>
-                    <input value="0.00" min="0.00" max="11.00" step="0.01" type="range" id="from" onchange="setFrom(value)">
-                    <input value="11.00" min="0.01" max="11.00" step="0.01" type="range" id="to" onchange="setTo(value)">
+                    <input
+                      value="0.00"
+                      min="0.00"
+                      max="11.00"
+                      step="0.01"
+                      type="range"
+                      id="from"
+                      onchange="setFrom(value)"
+                    />
+                    <input
+                      value="11.00"
+                      min="0.01"
+                      max="11.00"
+                      step="0.01"
+                      type="range"
+                      id="to"
+                      onchange="setTo(value)"
+                    />
                   </section>
                 </div>
               </div>
@@ -151,11 +164,19 @@
               <div class="filter-section">
                 <label class="filter-label">Text Size:</label>
                 <div class="text-size-control">
-                  <button type="button" id="decreaseText" aria-label="Decrease text size">
-                      −
+                  <button
+                    type="button"
+                    id="decreaseText"
+                    aria-label="Decrease text size"
+                  >
+                    −
                   </button>
-                  <button type="button" id="increaseText" aria-label="Increase text size">
-                       +
+                  <button
+                    type="button"
+                    id="increaseText"
+                    aria-label="Increase text size"
+                  >
+                    +
                   </button>
                 </div>
               </div>
@@ -164,12 +185,9 @@
 
           <!--Search bar -->
           <div class="search">
-            <span class = "searchIcon material-icons">search</span>
-            <input type = "text" id="searchInput" placeholder="Search products"
-          />
-
+            <span class="searchIcon material-icons">search</span>
+            <input type="text" id="searchInput" placeholder="Search products" />
           </div>
-          
 
           <!-- Product list dynamically populated by JavaScript -->
           <div id="displayProduct"></div>
