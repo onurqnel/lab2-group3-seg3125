@@ -315,3 +315,86 @@ function selectedItems(){
 window.addEventListener('DOMContentLoaded', function() {
 	document.querySelector('.tablinks').click();
 });
+// Search functionality 
+(function () {
+
+  function SearchFilter() {
+    const input = document.getElementById("searchInput");
+    const container = document.getElementById("displayProduct");
+    if (!input || !container) return;
+
+    const q = input.value.toLowerCase().trim();
+
+    // Each product is rendered as: checkbox + label
+    const labels = container.querySelectorAll("label");
+
+    labels.forEach(label => {
+      const text = label.textContent.toLowerCase();
+
+      // hide/show the entire line (checkbox + label)
+      const row = label.parentElement;
+
+      if (q === "" || text.includes(q)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("searchInput");
+    if (input) input.addEventListener("input", SearchFilter);
+  });
+
+  // Re-apply search AFTER filters redraw products
+  if (typeof window.populateListProductChoices === "function") {
+    const originalPopulate = window.populateListProductChoices;
+    window.populateListProductChoices = function () {
+      originalPopulate.apply(this, arguments);
+      SearchFilter();
+    };
+  }
+
+})();
+// TEXT SIZE + / -
+(function () {
+  let currentSize = 18;   // default text size
+  const minSize = 14;
+  const maxSize = 28;
+
+  function applyFontSize() {
+    document.documentElement.style.fontSize = currentSize + "px";
+    localStorage.setItem("siteFontSize", currentSize);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const plus = document.getElementById("increaseText");
+    const minus = document.getElementById("decreaseText");
+
+    // restore saved size
+    const saved = localStorage.getItem("siteFontSize");
+    if (saved) {
+      currentSize = parseInt(saved, 10);
+      applyFontSize();
+    }
+
+    if (plus) {
+      plus.addEventListener("click", () => {
+        if (currentSize < maxSize) {
+          currentSize += 2;
+          applyFontSize();
+        }
+      });
+    }
+
+    if (minus) {
+      minus.addEventListener("click", () => {
+        if (currentSize > minSize) {
+          currentSize -= 2;
+          applyFontSize();
+        }
+      });
+    }
+  });
+})();

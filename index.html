@@ -5,6 +5,8 @@
     <title>Good Food Grocery Store</title>
     <!-- Main stylesheet -->
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
   <body>
@@ -132,7 +134,29 @@
                 </section>
               </div>
             </div>
+            <!-- Text size control -->
+              <div class="text-size-control">
+                <span class="text-size-label">Text size</span>
+
+                <button type="button" id="decreaseText" aria-label="Decrease text size">
+                    −
+                </button>
+
+                <button type="button" id="increaseText" aria-label="Increase text size">
+                     +
+                </button>
+              </div>
+
           </div>
+
+          <!--Search bar -->
+          <div class="search">
+            <span class = "searchIcon material-icons">search</span>
+            <input type = "text" id="searchInput" placeholder="Search products..."
+          />
+
+          </div>
+          
 
           <!-- Product list dynamically populated by JavaScript -->
           <div id="displayProduct"></div>
