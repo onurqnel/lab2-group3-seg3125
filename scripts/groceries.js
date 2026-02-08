@@ -20,6 +20,15 @@ var products = [
     price: 6.9,
   },
   {
+    name: "Bagel",
+    category: "Bread",
+    image: "images/bagel.png",
+    vegetarian: true,
+    glutenFree: false,
+    organic: false,
+    price: 1.49,
+  },
+  {
     name: "Milk 3%",
     category: "Dairy",
     image: "images/milk.png",
@@ -65,6 +74,15 @@ var products = [
     price: 1.3,
   },
   {
+    name: "Carrot",
+    category: "Veggies",
+    image: "images/carrot.png",
+    vegetarian: true,
+    glutenFree: true,
+    organic: true,
+    price: 0.89,
+  },
+  {
     name: "Apples",
     category: "Fruits",
     image: "images/apple.png",
@@ -81,6 +99,15 @@ var products = [
     glutenFree: true,
     organic: false,
     price: 1.2,
+  },
+  {
+    name: "Peach",
+    category: "Fruits",
+    image: "images/peach.png",
+    vegetarian: true,
+    glutenFree: true,
+    organic: true,
+    price: 1.5,
   },
   {
     name: "Salmon",
@@ -150,6 +177,11 @@ function restrictListProducts(prods, restrictionVeg, restrictionGF) {
         }
       }
     }
+  }
+
+  // filter by category
+  if (typeof clientCategory !== "undefined" && clientCategory !== "all") {
+    first_products = first_products.filter(p => p.category === clientCategory);
   }
 
   // sorting based on organic/non-organic/all

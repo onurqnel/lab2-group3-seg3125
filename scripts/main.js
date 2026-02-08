@@ -1,6 +1,7 @@
 let clientVeg = false;
 let clientGF = false;
 let organicState = "all";
+let clientCategory = "all";
 let clientFrom = 0.00;
 let clientTo = 11.00;
 
@@ -77,6 +78,12 @@ function searchOrganic(org){
 		organicState = org;
 		populateListProductChoices("displayProduct");
 	}
+}
+
+// filter products by category
+function setCategory(category){
+	clientCategory = category;
+	populateListProductChoices("displayProduct");
 }
 
 //set price ranges

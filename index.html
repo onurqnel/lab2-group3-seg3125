@@ -70,89 +70,102 @@
           <h3>Your Targeted Products</h3>
           <p>We preselected products based on your dietary preferences.</p>
 
-          <!-- Filters section -->
-          <div class="filters">
-            <!-- Organic filter -->
-            <div class="filter-section">
-              <label class="filter-label">Filter by:</label>
-              <div
-                id="organicSelect"
-                class="radio-group"
-                name="organicSelect"
-                onchange="populateListProductChoices('displayProduct')"
-              >
-                <label class="radio-label">
-                  <input
-                    type="radio"
-                    id="all"
-                    name="FilterOrganic"
-                    value="all"
-                    checked
-                    onclick="searchOrganic(this.id)"
-                  />
-                  <span>All</span>
-                </label>
-                <label class="radio-label">
-                  <input
-                    type="radio"
-                    id="organic"
-                    name="FilterOrganic"
-                    value="organic"
-                    onclick="searchOrganic(this.id)"
-                  />
-                  <span>Organic</span>
-                </label>
-                <label class="radio-label">
-                  <input
-                    type="radio"
-                    id="non-organic"
-                    name="FilterOrganic"
-                    value="non-organic"
-                    onclick="searchOrganic(this.id)"
-                  />
-                  <span>Non Organic</span>
-                </label>
+          <!-- Filters section (collapsible) -->
+          <details class="filters" open>
+            <summary class="filters-toggle">Filters</summary>
+            <div class="filters-grid">
+              <!-- Organic filter -->
+              <div class="filter-section">
+                <label class="filter-label">Filter by:</label>
+                <div
+                  id="organicSelect"
+                  class="radio-group"
+                  name="organicSelect"
+                  onchange="populateListProductChoices('displayProduct')"
+                >
+                  <label class="radio-label">
+                    <input
+                      type="radio"
+                      id="all"
+                      name="FilterOrganic"
+                      value="all"
+                      checked
+                      onclick="searchOrganic(this.id)"
+                    />
+                    <span>All</span>
+                  </label>
+                  <label class="radio-label">
+                    <input
+                      type="radio"
+                      id="organic"
+                      name="FilterOrganic"
+                      value="organic"
+                      onclick="searchOrganic(this.id)"
+                    />
+                    <span>Organic</span>
+                  </label>
+                  <label class="radio-label">
+                    <input
+                      type="radio"
+                      id="non-organic"
+                      name="FilterOrganic"
+                      value="non-organic"
+                      onclick="searchOrganic(this.id)"
+                    />
+                    <span>Non Organic</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Category filter -->
+              <div class="filter-section">
+                <label class="filter-label">Category:</label>
+                <select id="categorySelect" class="category-dropdown" onchange="setCategory(this.value)">
+                  <option value="all">All Categories</option>
+                  <option value="Bread">Bread</option>
+                  <option value="Dairy">Dairy</option>
+                  <option value="Veggies">Veggies</option>
+                  <option value="Fruits">Fruits</option>
+                  <option value="Meat">Meat</option>
+                </select>
+              </div>
+
+              <!-- Price range filter -->
+              <div class="filter-section">
+                <label class="filter-label">Price Range:</label>
+                <!--
+                Source - https://stackoverflow.com/a/31083391
+                Posted by Gary, modified by community. See post 'Timeline' for change history
+                Retrieved 2026-02-04, License - CC BY-SA 3.0
+                -->
+                <div class="price-inputs">
+                  <section class="range-slider">
+                    <span class="rangeValues"></span>
+                    <input value="0.00" min="0.00" max="11.00" step="0.01" type="range" id="from" onchange="setFrom(value)">
+                    <input value="11.00" min="0.01" max="11.00" step="0.01" type="range" id="to" onchange="setTo(value)">
+                  </section>
+                </div>
+              </div>
+
+              <!-- Text size control -->
+              <div class="filter-section">
+                <label class="filter-label">Text Size:</label>
+                <div class="text-size-control">
+                  <button type="button" id="decreaseText" aria-label="Decrease text size">
+                      −
+                  </button>
+                  <button type="button" id="increaseText" aria-label="Increase text size">
+                       +
+                  </button>
+                </div>
               </div>
             </div>
-
-            <!-- Price range filter -->
-            <div class="filter-section">
-
-              <label class="filter-label">Price Range:</label>
-              
-              <!-- Price range slider-->
-              <!--
-              Source - https://stackoverflow.com/a/31083391
-              Posted by Gary, modified by community. See post 'Timeline' for change history
-              Retrieved 2026-02-04, License - CC BY-SA 3.0
-              -->
-              <div class="price-inputs">
-                <section class="range-slider">
-                  <span class="rangeValues"></span>
-                  <input value="0.00" min="0.00" max="11.00" step="0.01" type="range" id="from" onchange="setFrom(value)">
-                  <input value="11.00" min="0.01" max="11.00" step="0.01" type="range" id="to" onchange="setTo(value)">
-                </section>
-              </div>
-            </div>
-            <!-- Text size control -->
-              <div class="text-size-control">
-                <span class="text-size-label">Text size</span>
-
-                <button type="button" id="decreaseText" aria-label="Decrease text size">
-                    −
-                </button>
-
-                <button type="button" id="increaseText" aria-label="Increase text size">
-                     +
-                </button>
-              </div>
-
-          </div>
+          </details>
 
           <!--Search bar -->
           <div class="search">
             <span class = "searchIcon material-icons">search</span>
-            <input type = "text" id="searchInput" placeholder="Search products..."
+            <input type = "text" id="searchInput" placeholder="Search products"
           />
 
           </div>
